@@ -10,7 +10,7 @@ This repo hosts Dockerfiles for the respective docerimages on [Docker Hub](https
 
 The following repos are hosted on Docker Hub.
 
-### [xenial_cuda_opencv] 
+### xenial_cuda_opencv
 
 Image summary:
 - From: nvidia/cuda:10.2-devel-ubuntu16.04
@@ -19,7 +19,7 @@ Image summary:
 - OpenCV 3.3.1
 - tensorflow-gpu 1.12.0
 
-### [conda_py3.5_gtsam] 
+### conda_py3.5_gtsam 
 
 Image summary:
 - From: continuumio/miniconda3:latest
