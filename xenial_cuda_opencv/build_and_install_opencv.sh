@@ -6,7 +6,7 @@ CWD=`pwd`
 
 apt-get update && \
 apt-get install -q -y --no-install-recommends \
-    build-essential cmake libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev libtbb2 libtbb-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk-3-dev libatlas-base-dev gfortran libgphoto2-dev libeigen3-dev libhdf5-dev doxygen libavresample-dev qt5-default libdc1394-22-dev libxine2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libopenblas-dev liblapack-dev liblapacke-dev libgoogle-glog-dev libgflags-dev && \
+    build-essential cmake libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev libtbb2 libtbb-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk-3-dev libatlas-base-dev gfortran libgphoto2-dev libeigen3-dev libhdf5-dev doxygen libavresample-dev qt5-default libdc1394-22-dev libxine2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libopenblas-dev liblapack-dev liblapacke-dev libgoogle-glog-dev libgflags-dev libgl1-mesa-dev && \
 rm -rf /var/lib/apt/lists/*
 
 git clone -b $OPENCV_VERSION --depth 1 https://github.com/opencv/opencv.git opencv
