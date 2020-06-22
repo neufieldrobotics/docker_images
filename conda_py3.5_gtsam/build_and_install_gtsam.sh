@@ -22,18 +22,20 @@ cmake -DGTSAM_ALLOW_DEPRECATED_SINCE_V4=OFF \
       -DGTSAM_BUILD_UNSTABLE=OFF \
       .. || exit 1
 
-echo Docker Memory: $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)
-
+echo Docker Memory Limit: $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)
+echo Total Memory: $(awk '/^MemTotal:/ { print $2; }' /proc/meminfo)
 # Dockerhub has a memory limit of 2G, so build with fewer processes
-if [ $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) -gt 2147483648 ]; 
+if [ $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) -gt 1099511627776 ]; 
     then
-        echo " Memory greater than 2G"
-        make -j$(nproc)  || exit 1
+        echo " Memory greater than 1 Terabyte, running on docker hub"
+        sleep 3
+        # make -j1  || exit 1
     else
-        echo " Memory less than 2G"
-        make -j2  || exit 1  
+        echo " Memory less than 1 Terabyte running locally"
+        sleep 3
+        # make -j$(nproc)  || exit 1  
 fi
 
-make install || exit 1
+#make install || exit 1
 
 cd ../..
