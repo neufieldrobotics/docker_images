@@ -24,18 +24,20 @@ cmake -DGTSAM_ALLOW_DEPRECATED_SINCE_V4=OFF \
 
 echo Docker Memory Limit: $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)
 echo Total Memory: $(awk '/^MemTotal:/ { print $2; }' /proc/meminfo)
+
+echo BUILD_LOC $BUILD_LOC
 # Dockerhub has a memory limit of 2G, so build with fewer processes
 
-if [[ -z "${SOURCE_BRANCH}" ]]; then
-    echo "Variable SOURCE_BRANCH not set, this is being built locally"
+if [ "${BUILD_LOC}" == "DOCKERHUB" ]; then
+    echo "Variable BUILD_LOC is set to ${BUILD_LOC}, this is being built on docker hub";
     sleep 3
-    # make -j1  || exit 1  
+    make -j1 || exit 1
 else
-    echo "Variable SOURCE_BRANCH is set to ${SOURCE_BRANCH}, this is being built on docker hub"
+    echo "Variable BUILD_LOC not set to DOCKERHUB, this is being built locally";
     sleep 3
-    # make -j$(nproc)  || exit 1
+    make -j$(nproc) || exit 1  
 fi
 
-#make install || exit 1
+make install || exit 1
 
 cd ../..

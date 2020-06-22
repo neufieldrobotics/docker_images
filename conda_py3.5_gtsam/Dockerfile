@@ -1,12 +1,18 @@
 FROM continuumio/miniconda3:latest
 LABEL maintainers="Vikrant Shah <shah.vi@northeastern.edu>"
 
+# Set BUILD_LOC to DOCKERHUB when performing automated build
+ARG BUILD_LOC
+ENV BUILD_LOC=$BUILD_LOC
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHON_VERSION=3.5
 ENV OPENCV_VERSION=3.3.1
 
 # Make RUN commands use `bash --login`:
 SHELL ["/bin/bash", "--login", "-c"]
+
+RUN echo BUILD_LOC $BUILD_LOC
 
 # install basic packages
 RUN apt-get update && \
