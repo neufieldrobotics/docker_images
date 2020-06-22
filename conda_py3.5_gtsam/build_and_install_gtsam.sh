@@ -18,6 +18,7 @@ cd build
 cmake -DGTSAM_ALLOW_DEPRECATED_SINCE_V4=OFF \
       -DGTSAM_INSTALL_MATLAB_TOOLBOX=OFF \
       -DGTSAM_INSTALL_CYTHON_TOOLBOX=ON \
+      -DCMAKE_INSTALL_PREFIX=$CWD/gtsam_bin \
       .. || exit 1
 
 make -j$(nproc) || exit 1
@@ -25,5 +26,3 @@ make -j$(nproc) || exit 1
 make install || exit 1
 
 cd ../..
-
-rm -rf gtsam
