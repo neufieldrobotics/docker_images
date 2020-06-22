@@ -19,9 +19,20 @@ cmake -DGTSAM_ALLOW_DEPRECATED_SINCE_V4=OFF \
       -DGTSAM_INSTALL_MATLAB_TOOLBOX=OFF \
       -DGTSAM_INSTALL_CYTHON_TOOLBOX=ON \
       -DCMAKE_INSTALL_PREFIX=$CWD/gtsam_bin \
+      -DGTSAM_BUILD_UNSTABLE=OFF \
       .. || exit 1
 
-make -j$(nproc) || exit 1
+echo Docker Memory: $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)
+
+# Dockerhub has a memory limit of 2G, so build with fewer processes
+if [ $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) -gt 2147483648 ]; 
+    then
+        echo " Memory greater than 2G"
+        make -j$(nproc)  || exit 1
+    else
+        echo " Memory less than 2G"
+        make -j2  || exit 1  
+fi
 
 make install || exit 1
 

@@ -14,7 +14,6 @@ RUN apt-get update && \
     build-essential tree wget cmake vim nano git && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./*.sh /
 COPY ./*.yml /
 
 RUN conda update -n base -c defaults conda \
@@ -29,6 +28,8 @@ RUN conda init bash
 
 # Activate the environment, and make sure it's activated:
 RUN echo "conda activate py35_env" >> ~/.bashrc
+
+COPY ./*.sh /
 
 RUN ./build_and_install_gtsam.sh
 
