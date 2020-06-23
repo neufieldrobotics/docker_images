@@ -12,6 +12,8 @@ cd gtsam
 
 pip install -r cython/requirements.txt
 
+ln -sf /usr/bin/x86_64-linux-gnu-ld.gold /usr/bin/ld
+
 mkdir build
 cd build
 
@@ -20,6 +22,8 @@ cmake -DGTSAM_ALLOW_DEPRECATED_SINCE_V4=OFF \
       -DGTSAM_INSTALL_CYTHON_TOOLBOX=ON \
       -DCMAKE_INSTALL_PREFIX=$CWD/gtsam_bin \
       -DGTSAM_BUILD_UNSTABLE=OFF \
+      -DCMAKE_C_FLAGS="--param ggc-min-expand=20 --param ggc-min-heapsize=32768" \
+      -DCMAKE_CXX_FLAGS="--param ggc-min-expand=20 --param ggc-min-heapsize=32768" \
       .. || exit 1
 
 echo Docker Memory Limit: $(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)
@@ -41,3 +45,5 @@ fi
 make install || exit 1
 
 cd ../..
+
+ln -sf /usr/bin/x86_64-linux-gnu-ld.bfd /usr/bin/ld
