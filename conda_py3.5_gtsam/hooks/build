@@ -1,3 +1,4 @@
 #!/bin/bash
 
-docker build -t $IMAGE_NAME --build-arg BUILD_LOC=$BUILD_LOC .
+docker build --build-arg BUILD_LOC=$BUILD_LOC -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+
