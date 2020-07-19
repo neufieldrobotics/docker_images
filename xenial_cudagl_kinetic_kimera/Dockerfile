@@ -21,7 +21,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
 # install ros packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-desktop-full=1.3.2-0* ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-image-geometry ros-$ROS_DISTRO-pcl-ros ros-$ROS_DISTRO-cv-bridge \
-    ros-$ROS_DISTRO-catkin python-catkin-tools build-essential python-rosdep python-rosinstall python-vcstools dh-autoreconf \
+    ros-$ROS_DISTRO-catkin python-wstool python-catkin-tools build-essential python-rosdep python-rosinstall python-vcstools \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rosdep init && \
@@ -36,6 +36,14 @@ RUN chmod 600 ~/.ssh/id_rsa
 # Make sure your domain is accepted
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+
+# Install Kimera Prerequisities
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cmake build-essential apt-utils unzip pkg-config autoconf libboost-all-dev \
+    libjpeg-dev libpng12-dev libtiff5-dev libvtk6-dev libgtk2.0-dev \
+    libatlas-base-dev gfortran libparmetis-dev automake libtool \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p ~/catkin_ws/src && cd ~/catkin_ws/ && \
     catkin init && \
