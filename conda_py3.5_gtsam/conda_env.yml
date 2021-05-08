@@ -16,3 +16,4 @@ dependencies:
   - cmake
   - pip
   - conda-build
+  - packaging

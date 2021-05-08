@@ -1,7 +1,7 @@
 # Install gtsam
 set -x
 CWD=`pwd`
-git clone --depth 1 https://github.com/borglab/gtsam gtsam
+git clone https://github.com/borglab/gtsam gtsam
 
 apt-get update && \
 apt-get install -q -y --no-install-recommends \
@@ -9,6 +9,7 @@ apt-get install -q -y --no-install-recommends \
 rm -rf /var/lib/apt/lists/*
 
 cd gtsam
+git checkout ff60ea8dbc70ebabbc6b4e34d1d52057ef4d9c33
 
 pip install -r cython/requirements.txt
 
