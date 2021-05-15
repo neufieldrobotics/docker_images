@@ -1,0 +1,19 @@
+name: py36_env
+channels:
+  - defaults
+dependencies:
+  - python=3.6
+  - opencv
+  - matplotlib
+  - numpy
+  - scipy
+  - pyyaml
+  - colorama
+  - progressbar2
+  - pyqt
+  - spyder-kernels
+  - boost
+  - cmake
+  - pip
+  - conda-build
+  - packaging

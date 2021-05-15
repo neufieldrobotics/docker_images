@@ -9,18 +9,16 @@ apt-get install -q -y --no-install-recommends \
 rm -rf /var/lib/apt/lists/*
 
 cd gtsam
-git checkout 4.0.2
+#git checkout 4.0.2
 
-pip install -r cython/requirements.txt
+pip install -r python/requirements.txt 
 
 ln -sf /usr/bin/x86_64-linux-gnu-ld.gold /usr/bin/ld
 
 mkdir build
 cd build
 
-cmake -DGTSAM_ALLOW_DEPRECATED_SINCE_V4=OFF \
-      -DGTSAM_INSTALL_MATLAB_TOOLBOX=OFF \
-      -DGTSAM_INSTALL_CYTHON_TOOLBOX=ON \
+cmake -DGTSAM_BUILD_PYTHON=1 \
       -DCMAKE_INSTALL_PREFIX=$CWD/gtsam_bin \
       -DGTSAM_BUILD_UNSTABLE=OFF \
       -DCMAKE_C_FLAGS="--param ggc-min-expand=20 --param ggc-min-heapsize=32768" \
@@ -44,6 +42,7 @@ else
 fi
 
 make install || exit 1
+make python-install || exit 1
 
 cd ../..
 
